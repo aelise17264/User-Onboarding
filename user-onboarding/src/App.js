@@ -13,6 +13,7 @@ const initialValues ={
  first_name: '',
  last_name: '',
   email: '',
+  avatar: '',
   password: '',
   terms: '',
 
@@ -23,8 +24,6 @@ const initialErrors = {
  last_name: '',
   email: '',
 password: '',
-terms: '',
-
 }
 
 const initialUsers = []
@@ -108,6 +107,7 @@ const submit = () => {
     first_name: values.first_name.trim(),
  last_name: values.last_name.trim(),
     email: values.email.trim(),
+    avatar: values.avatar,
 password: values.password.trim(),
 terms: values.terms
   }
@@ -144,7 +144,7 @@ useEffect(() => {
           <div className='cardContainer' key={user.id}>
           <h2>Name: {user.first_name} {user.last_name}</h2>
            <h3>Email: {user.email}</h3>
-           <img src={user.avatar} alt={logo}/>
+           <img id='avatar' src={user.avatar} alt={logo}/>
                <h3>Password: {user.password} </h3>
                <h3>Terms and Services: {user.terms} </h3>
            </div>

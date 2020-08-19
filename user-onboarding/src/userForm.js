@@ -28,16 +28,23 @@ const onIpChange = event => {
     console.log(name, value)
 }
 
+
+
+
+
+
 return(
     <form className='formContainer' onSubmit={onSubmit}>
+      <h2>Sign Up</h2>
         <div className='formInfo'>
-            <h2>Sign Up</h2>
+           
             <label>First Name:
                 <input
                 value={values.first_name}
                 onChange={onIpChange}
                 name='first_name'
                 type='text'
+                placeholder='first name'
                 />
             </label>
             <label>Last Name:
@@ -46,6 +53,7 @@ return(
                 onChange={onIpChange}
                 name='last_name'
                 type='text'
+                placeholder='last name'
                 />
             </label>
             <label>Email:
@@ -54,8 +62,10 @@ return(
                 onChange={onIpChange}
                 name='email'
                 type='email'
+                placeholder='enter your email here'
                 />
             </label>
+            
             <label>Password:
                 <input
                 value={values.password}
@@ -64,6 +74,16 @@ return(
                 type='text'
                 />
             </label>
+            <label>Profile Picture
+                <input
+                value={values.avatar}
+                onChange={onIpChange}
+                name='avatar'
+                type='url'
+                id='url'
+                placeholder='link to your profile picture'
+                />
+                </label>
             <label>Terms and Services:
                 <input
                 onChange={onCBChange}
@@ -72,6 +92,8 @@ return(
                 checked={values.terms}
                 />
             </label>
+           
+
 
         </div>
    <div className='myErrors'>
