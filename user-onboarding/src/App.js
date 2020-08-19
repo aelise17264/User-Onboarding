@@ -9,6 +9,7 @@ import formSchema from './formSchema';
 
 
 const initialValues ={
+  id: uuid(),
  first_name: '',
  last_name: '',
   email: '',
@@ -55,9 +56,8 @@ const getUsers = () => {
 const postNewUser = newUser => {
   axios.post(thisUrl, newUser)
   .then(res => {
-    
-    setUsers([...users, res.data.data])
-    console.log(newUser)
+    console.log(res.data)
+    setUsers([...users, res.data])
   })
   .catch(error => {
     console.log('check the axios post')
@@ -109,7 +109,7 @@ const submit = () => {
  last_name: values.last_name.trim(),
     email: values.email.trim(),
 password: values.password.trim(),
-terms: values.terms,
+terms: values.terms
   }
   postNewUser(newUser)
 }
@@ -141,9 +141,10 @@ useEffect(() => {
     {
       users.map(user => {
         return(
-          <div className='cardContainer' >
+          <div className='cardContainer' key={user.id}>
           <h2>Name: {user.first_name} {user.last_name}</h2>
            <h3>Email: {user.email}</h3>
+           <img src={user.avatar} alt={logo}/>
                <h3>Password: {user.password} </h3>
                <h3>Terms and Services: {user.terms} </h3>
            </div>

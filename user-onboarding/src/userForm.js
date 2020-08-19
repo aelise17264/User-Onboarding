@@ -13,6 +13,7 @@ const {
 const onSubmit = event => {
     event.preventDefault()
     submit()
+    console.log(submit())
 }
 
 const onCBChange = event => {
@@ -24,6 +25,7 @@ const onIpChange = event => {
     const {name, value} = event.target
    
     inputChange(name, value)
+    console.log(name, value)
 }
 
 return(
