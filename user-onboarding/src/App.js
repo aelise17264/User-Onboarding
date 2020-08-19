@@ -1,20 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import axios from 'axios'
-import * as yup from 'yup'
-import UserForm from './userForm'
+import axios from 'axios';
+import {v4 as uuid} from 'uuid';
+import * as yup from 'yup';
+import UserForm from './userForm';
+import formSchema from './formSchema';
+
 
 const initialValues ={
-name: '',
-email: '',
-password: '',
-terms: false,
+ first_name: '',
+ last_name: '',
+  email: '',
+  password: '',
+  terms: '',
 
 }
 
 const initialErrors = {
-  name: '',
+  first_name: '',
+ last_name: '',
   email: '',
 password: '',
 terms: '',
@@ -28,15 +33,19 @@ function App() {
 
 const [users, setUsers] = useState(initialUsers)
 const [values, setValues] = useState(initialValues)
-const [errors, setErrors] = useState(initialErrors)
+const [myErrors, setmyErrors] = useState(initialErrors)
 const [disabled, setDisabled] = useState(initialDisabled)
+
+//console.log(users)
 
 const thisUrl = 'https://reqres.in/api/users'
 
+
 const getUsers = () => {
   axios.get(thisUrl)
-  .then(result => {
-    setUsers(result.data)
+  .then(res => {
+    setUsers(res.data.data)
+    //console.log(res.data.data)
   })
   .catch(error => {
     console.log('check the axios get')
@@ -45,8 +54,9 @@ const getUsers = () => {
 
 const postNewUser = newUser => {
   axios.post(thisUrl, newUser)
-  .then(result => {
-    setUsers([...users, result.data])
+  .then(res => {
+    setUsers([...users, res.data])
+    setValues(initialValues)
   })
   .catch(error => {
     console.log('check the axios post')
@@ -59,13 +69,23 @@ const postNewUser = newUser => {
 
 const inputChange = (name, value) => {
  
+  yup
+  .reach(formSchema, name)
+  .validate(value)
+  .then(valid => {
+      setmyErrors({
+        ...myErrors,
+        [name]: ''
+      });
+  })
+    .catch(error => {
+      setmyErrors({
+        ...myErrors,
+        [name]: error.errors[0]
+      });
+    });
 
-      setErrors({
-        ...errors,
-          [name]: errors.errors[0]
-
-      })
-
+     
     setValues({
       ...values,
       [name]: value
@@ -85,8 +105,9 @@ const checkboxChange = (name, isChecked) => {
 
 const submit = () => {
   const newUser = {
-    name: values.name.trim(),
-    email: values.email.trim(),
+    first_name: values.data.first_name.trim(),
+ last_name: values.data.last_name.trim(),
+    email: values.data.email.trim(),
 password: values.password.trim(),
 terms: values.terms,
   }
@@ -97,7 +118,12 @@ useEffect(() => {
   getUsers()
 }, [])
 
-
+useEffect(() => {
+  formSchema.isValid(values)
+  .then(valid => {
+    setDisabled(!valid);
+  });
+}, [values])
 
   return (
     <div className="App">
@@ -109,21 +135,21 @@ useEffect(() => {
       checkboxChange={checkboxChange}
       submit={submit}
       disabled={disabled}
-      errors={errors}
+      myErrors={myErrors}
     />
      
-    {/* {
+    {
       users.map(user => {
         return(
-          <div className='userContainer' key={user.id}>
-            <h2>Name: {user.name}</h2>
-        <h3>Email: {user.email}</h3>
-            <h3>Password: {user.password} </h3>
-            <h3>Terms and Services: {user.terms} </h3>
-            </div>
+          <div className='cardContainer' key={user.id}>
+          <h2>Name: {user.first_name} {user.last_name}</h2>
+           <h3>Email: {user.email}</h3>
+               <h3>Password: {user.password} </h3>
+               <h3>Terms and Services: {user.terms} </h3>
+           </div>
         )
       })
-    } */}
+    }
 
     </div>
   );

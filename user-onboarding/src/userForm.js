@@ -7,7 +7,7 @@ const {
     checkboxChange,
     submit,
     disabled,
-    errors
+    myErrors
 } = props
 
 const onSubmit = event => {
@@ -29,9 +29,17 @@ return(
     <form className='formContainer' onSubmit={onSubmit}>
         <div className='formInfo'>
             <h2>Sign Up</h2>
-            <label>Name:
+            <label>First Name:
                 <input
-                value={values.name}
+                value={values.first_name}
+                onChange={onIpChange}
+                name='name'
+                type='text'
+                />
+            </label>
+            <label>Last Name:
+                <input
+                value={values.last_name}
                 onChange={onIpChange}
                 name='name'
                 type='text'
@@ -39,7 +47,7 @@ return(
             </label>
             <label>Email:
                 <input
-                value={values.naemailme}
+                value={values.email}
                 onChange={onIpChange}
                 name='email'
                 type='email'
@@ -63,11 +71,12 @@ return(
             </label>
 
         </div>
-   <div className='errors'>
-   <div>{errors.name}</div>
-          <div>{errors.email}</div>
-          <div>{errors.password}</div>
-          <div>{errors.terms}</div>
+   <div className='myErrors'>
+   <div>{myErrors.first_name}</div>
+   <div>{myErrors.last_name}</div>
+          <div>{myErrors.email}</div>
+          <div>{myErrors.password}</div>
+          <div>{myErrors.terms}</div>
    </div>
     <div className='submit'>
 <button disabled={disabled}>Submit</button>
