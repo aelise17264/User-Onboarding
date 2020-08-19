@@ -55,8 +55,9 @@ const getUsers = () => {
 const postNewUser = newUser => {
   axios.post(thisUrl, newUser)
   .then(res => {
-    setUsers([...users, res.data])
-    setValues(initialValues)
+    
+    setUsers([...users, res.data.data])
+    console.log(newUser)
   })
   .catch(error => {
     console.log('check the axios post')
@@ -75,7 +76,7 @@ const inputChange = (name, value) => {
   .then(valid => {
       setmyErrors({
         ...myErrors,
-        [name]: ''
+        [name]: ""
       });
   })
     .catch(error => {
@@ -84,7 +85,6 @@ const inputChange = (name, value) => {
         [name]: error.errors[0]
       });
     });
-
      
     setValues({
       ...values,
@@ -105,9 +105,9 @@ const checkboxChange = (name, isChecked) => {
 
 const submit = () => {
   const newUser = {
-    first_name: values.data.first_name.trim(),
- last_name: values.data.last_name.trim(),
-    email: values.data.email.trim(),
+    first_name: values.first_name.trim(),
+ last_name: values.last_name.trim(),
+    email: values.email.trim(),
 password: values.password.trim(),
 terms: values.terms,
   }
@@ -141,7 +141,7 @@ useEffect(() => {
     {
       users.map(user => {
         return(
-          <div className='cardContainer' key={user.id}>
+          <div className='cardContainer' >
           <h2>Name: {user.first_name} {user.last_name}</h2>
            <h3>Email: {user.email}</h3>
                <h3>Password: {user.password} </h3>

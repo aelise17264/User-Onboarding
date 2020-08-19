@@ -22,6 +22,7 @@ const onCBChange = event => {
 
 const onIpChange = event => {
     const {name, value} = event.target
+   
     inputChange(name, value)
 }
 
@@ -33,7 +34,7 @@ return(
                 <input
                 value={values.first_name}
                 onChange={onIpChange}
-                name='name'
+                name='first_name'
                 type='text'
                 />
             </label>
@@ -41,7 +42,7 @@ return(
                 <input
                 value={values.last_name}
                 onChange={onIpChange}
-                name='name'
+                name='last_name'
                 type='text'
                 />
             </label>
@@ -76,7 +77,6 @@ return(
    <div>{myErrors.last_name}</div>
           <div>{myErrors.email}</div>
           <div>{myErrors.password}</div>
-          <div>{myErrors.terms}</div>
    </div>
     <div className='submit'>
 <button disabled={disabled}>Submit</button>
