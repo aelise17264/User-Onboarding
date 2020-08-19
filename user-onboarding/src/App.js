@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import axios from 'axios'
 import * as yup from 'yup'
+import UserForm from './userForm'
 
 const initialValues ={
 name: '',
@@ -42,7 +43,7 @@ const getUsers = () => {
   })
 }
 
-const postUser = newUser => {
+const postNewUser = newUser => {
   axios.post(thisUrl, newUser)
   .then(result => {
     setUsers([...users, result.data])
@@ -55,24 +56,75 @@ const postUser = newUser => {
   })
 }
 
+
+const inputChange = (name, value) => {
+ 
+
+      setErrors({
+        ...errors,
+          [name]: errors.errors[0]
+
+      })
+
+    setValues({
+      ...values,
+      [name]: value
+    })
+
+}
+
+const checkboxChange = (name, isChecked) => {
+  setValues({
+    ...values,
+    terms:{
+      ...values.terms,
+      [name]: isChecked
+    }
+  })
+}
+
+const submit = () => {
+  const newUser = {
+    name: values.name.trim(),
+    email: values.email.trim(),
+password: values.password.trim(),
+terms: values.terms,
+  }
+  postNewUser(newUser)
+}
+
+useEffect(() => {
+  getUsers()
+}, [])
+
+
+
   return (
     <div className="App">
+      <header><h1>New User Form</h1></header>
 
+    <UserForm
+      values = {values}
+      inputChange={inputChange}
+      checkboxChange={checkboxChange}
+      submit={submit}
+      disabled={disabled}
+      errors={errors}
+    />
+     
+    {/* {
+      users.map(user => {
+        return(
+          <div className='userContainer' key={user.id}>
+            <h2>Name: {user.name}</h2>
+        <h3>Email: {user.email}</h3>
+            <h3>Password: {user.password} </h3>
+            <h3>Terms and Services: {user.terms} </h3>
+            </div>
+        )
+      })
+    } */}
 
-      {/* <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header> */}
     </div>
   );
 }
