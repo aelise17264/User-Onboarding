@@ -102,6 +102,7 @@ const checkboxChange = (name, isChecked) => {
   })
 }
 
+
 const submit = () => {
   const newUser = {
     first_name: values.first_name.trim(),
@@ -141,12 +142,14 @@ useEffect(() => {
     {
       users.map(user => {
         return(
+          <div className='cards'>
           <div className='cardContainer' key={user.id}>
           <h2>Name: {user.first_name} {user.last_name}</h2>
            <h3>Email: {user.email}</h3>
-           <img id='avatar' src={user.avatar} alt={logo}/>
+           <img className='avatar' src={user.avatar} alt={logo}/>
                <h3>Password: {user.password} </h3>
                <h3>Terms and Services: {user.terms} </h3>
+           </div>
            </div>
         )
       })
