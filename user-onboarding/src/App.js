@@ -53,10 +53,11 @@ const getUsers = () => {
 }
 
 const postNewUser = newUser => {
-  axios.post(thisUrl, newUser)
+  axios.post('https://reqres.in/api/users', newUser)
   .then(res => {
-    console.log(res.data)
+    
     setUsers([...users, res.data])
+    
   })
   .catch(error => {
     console.log('check the axios post')
@@ -106,11 +107,11 @@ const checkboxChange = (name, isChecked) => {
 const submit = () => {
   const newUser = {
     first_name: values.first_name.trim(),
- last_name: values.last_name.trim(),
+    last_name: values.last_name.trim(),
     email: values.email.trim(),
     avatar: values.avatar,
-password: values.password.trim(),
-terms: values.terms
+    password: values.password.trim(),
+    terms: values.terms
   }
   postNewUser(newUser)
 }
@@ -142,8 +143,8 @@ useEffect(() => {
     {
       users.map(user => {
         return(
-          <div className='cards'>
-          <div className='cardContainer' key={user.id}>
+          <div className='cards' key={user.id}>
+          <div className='cardContainer' >
           <h2>Name: {user.first_name} {user.last_name}</h2>
            <h3>Email: {user.email}</h3>
            <img className='avatar' src={user.avatar} alt={logo}/>

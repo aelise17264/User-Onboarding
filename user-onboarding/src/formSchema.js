@@ -18,6 +18,8 @@ const formSchema = yup.object().shape({
       .min(6, "Password must be at least 6 characters long.")
       .required("Password is Required"),
     avatar: yup
+    .string(),
+    terms: yup
     .string()
       
   });
