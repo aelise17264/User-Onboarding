@@ -95,11 +95,9 @@ const inputChange = (name, value) => {
 
 const checkboxChange = (name, isChecked) => {
   setValues({
-    ...values,
-    terms:{
-      ...values.terms,
+      ...values,
       [name]: isChecked
-    }
+    
   })
 }
 
@@ -149,7 +147,7 @@ useEffect(() => {
            <h3>Email: {user.email}</h3>
            <img className='avatar' src={user.avatar} alt={logo}/>
                <h3>Password: {user.password} </h3>
-               <h3>Terms and Services: {user.terms} </h3>
+               
            </div>
            </div>
         )

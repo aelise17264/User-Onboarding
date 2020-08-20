@@ -29,10 +29,6 @@ const onIpChange = event => {
 }
 
 
-
-
-
-
 return(
     <form className='formContainer' onSubmit={onSubmit}>
       <h2>Sign Up</h2>
@@ -96,11 +92,11 @@ return(
 
 
         </div>
-   <div className='myErrors'>
-   <div>{myErrors.first_name}</div>
-   <div>{myErrors.last_name}</div>
-          <div>{myErrors.email}</div>
-          <div>{myErrors.password}</div>
+    <div className='myErrors'>
+        <div>{myErrors.first_name}</div>
+        <div>{myErrors.last_name}</div>
+        <div>{myErrors.email}</div>
+        <div>{myErrors.password}</div>
    </div>
     <div className='submit'>
 <button disabled={disabled}>Submit</button>
